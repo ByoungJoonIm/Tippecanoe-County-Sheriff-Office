@@ -3,10 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
+  Alert,
   ScrollView,
   Dimensions,
   BackHandler,
+  StatusBar,
 } from 'react-native';
 import Weather from '../components/Weather';
 import ControllContainer from '../actions/ControllContainer';
@@ -78,10 +79,11 @@ class MainPage extends Component {
 
   countUpClickButton() {
     this.state.myCount = this.state.myCount + 1;
-    if (this.state.myCount >= 10) {
-      this.state.myCount = 0;
-      ControllContainer.getInstance().openViewName('Email', null);
+    if (this.state.myCount >= 12) {
+         this.state.myCount = 0;
+         getLink.openView('ModalView', 'ModalEasterEgg')
     }
+   
   }
 
   _getWeather = (lat, lon) => {
@@ -106,6 +108,7 @@ class MainPage extends Component {
       <View>
       <ScrollView style={{ backgroundColor: '#f1f2f6' }}>
         <View style={styles.container}>
+        <StatusBar backgroundColor="blue" barStyle="dark-content" />
           <View style={styles.horizontal}>
             <Weather
               temp={Math.ceil(
@@ -116,7 +119,7 @@ class MainPage extends Component {
             />
           </View>
           <View style={styles.space}></View>
-          <Logo width={width} height={height * 0.25} />
+          <Logo onPress={() => this.countUpClickButton()} width={width} height={height * 0.25} />
           <View style={styles.space}></View>
           <QnA />
           <View style={styles.space}></View>
